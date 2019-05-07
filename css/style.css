@@ -84,6 +84,16 @@ body {
     color:#1A73E8;
  }
 
+.results{
+    width: 90%;
+    margin: 1rem auto;
+}
+
+.results-count {
+    font-size: 18px;
+    color: green;
+}
+
 @media only screen and (max-width: 768px) {
     .logo-main {
         margin-bottom: 2rem;
@@ -121,5 +131,8 @@ body {
     }
     .input-search {
         margin: 2rem 0;
+    }
+    .results-count {
+        text-align: center;
     }
 }
