@@ -94,6 +94,66 @@ body {
     color: green;
 }
 
+.result-item {
+    display: flex;
+    flex-direction: column;
+}
+
+.title {
+    margin-bottom: 2px;
+    font-weight: 700;
+}
+
+.result {
+    text-decoration: none;
+    color: blue;
+    cursor: pointer;
+    font-size: 1.4rem;
+}
+
+.result:hover {
+    color: red;
+}
+
+.url {
+    color: green;
+    text-decoration: none;
+    cursor: pointer;
+    font-size: 0.8rem;
+}
+
+.page-bnts{
+    display: flex;
+    justify-content: center;
+    font-size: 2rem;
+    font-weight: 700;
+    margin-bottom: 2rem;
+}
+
+.page-number,
+.page-number a {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-decoration: none;
+}
+
+.page-number.last {
+    display: flex;
+    flex-direction: row;
+    align-items: stretch;
+}
+
+.number {
+    color: #333;
+    font-size: 13px;
+}
+
+a .number {
+    color: blue;
+}
+
+
 @media only screen and (max-width: 768px) {
     .logo-main {
         margin-bottom: 2rem;

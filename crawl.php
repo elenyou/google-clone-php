@@ -173,5 +173,5 @@ function followLinks($url) {
     }
 }
 
-$startUrl = "https://www.petfinder.com/dog-breeds/";
+$startUrl = "https://en.wikipedia.org/wiki/Poodle";
 followLinks($startUrl);

@@ -28,30 +28,52 @@ class SitesResultsProvider{
 
     public function getResultsHtml($page, $pageSize, $term) {
 
+        $fromLimit = ($page - 1) * $pageSize;
+
         $query = $this->con->prepare(
             "SELECT * FROM sites
             WHERE title LIKE :term
             OR url LIKE :term
             OR keywords LIKE :term
             OR description LIKE :term
-            ORDER BY clicks DESC"
+            ORDER BY clicks DESC
+            LIMIT :fromLimit, :pageSize"
         );
 
         $searchTerm = "%" . $term . "%";
         $query->bindParam(":term", $searchTerm);
+        $query->bindParam(":fromLimit", $fromLimit, PDO::PARAM_INT);
+        $query->bindParam(":pageSize", $pageSize, PDO::PARAM_INT);
         $query->execute();
 
         $resultsHtml = "<div class='site-results'>";
 
-        white($row = $query->fetch(PDO::FETCH_ASSOC)){
-
+        while($row = $query->fetch(PDO::FETCH_ASSOC)){
+            $id = $row["id"];
+            $url = $row["url"];
             $title = $row["title"];
-            $resultsHtml .= "$title";
+            $description = $row["description"];
+
+            $title = $this->trimField($title, 50);
+            $description = $this->trimField($description, 200);
+
+            $resultsHtml .= "<div class='result-item'>
+                                <h3 class='title'>
+                                    <a class='result' href='$url' data-linkId='$id'>$title</a>
+                                </h3>
+                                <a class='url' href='$url'>$url</a>
+                                <span class='description'>$description </span>
+                            </div>";
         }
 
-        $resultsHtml .= "</div>;
+        $resultsHtml .= "</div>";
+
         return $resultsHtml;
     }
+    private function trimField($string, $characterLimit){
+        $dots = strlen($string) > $characterLimit ? "..." : "";
+        return substr($string, 0, $characterLimit) . $dots;
+      }
 
 }
 ?>
