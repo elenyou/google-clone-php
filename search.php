@@ -2,6 +2,7 @@
 
     include("config.php");
     include("classes/SitesResultsProvider.php");
+    include("classes/ImageResultsProvider.php");
 
 
     //displaying the active tab
@@ -19,8 +20,10 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <link href="https://fonts.googleapis.com/css?family=Noto+Sans:400,700" rel="stylesheet">
-    <link rel="stylesheet" href="css/style.css">
-    <link rel="stylesheet" href="css/btn.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.3.5/jquery.fancybox.min.css" />
+    <link rel="stylesheet" href="assets/css/style.css">
+    <link rel="stylesheet" href="assets/css/btn.css">
+    <script src="https://code.jquery.com/jquery-3.3.1.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
     <title>Welcome to Poodle</title>
 </head>
 
@@ -39,6 +42,7 @@
                 <div id="cover">
                     <form method="GET" action="search.php">
                         <div class="td">
+                            <input type="hidden" name="type" value="<?php echo $type; ?>">
                             <input type="text" name="term" value="<?php echo $term ?>">
                         </div>
                         <div class="td" id="s-cover">
@@ -65,8 +69,13 @@
 
     <div class="results">
         <?php
+           if($type == "sites"){
             $resultsProvider = new SitesResultsProvider($con);
             $pageSize = 20;
+          } else {
+            $resultsProvider = new ImageResultsProvider($con);
+            $pageSize = 30;
+          }
 
             $numResults = $resultsProvider->getNumResults($term);
 
@@ -78,9 +87,9 @@
 
     <div class="pagination">
         <div class="page-bnts">
-          <div class="page-number"><span class='blue'>P</span></div>
+            <div class="page-number"><span class='blue'>P</span></div>
 
-          <?php
+            <?php
             $pagesToShow = 10;
             $numPages = ceil($numResults / $pageSize);
             $pagesLeft = min($pagesToShow, $numPages);
@@ -113,13 +122,16 @@
             }
           ?>
 
-          <div class="page-number last">
-            <span class='blue'>d</span><span class='green'>l</span><span class='red'>e</span>
-          </div>
+            <div class="page-number last">
+                <span class='blue'>d</span><span class='green'>l</span><span class='red'>e</span>
+            </div>
         </div>
-      </div>
+    </div>
 
-
+    <!-- Javascript -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.3.5/jquery.fancybox.min.js"></script>
+    <script src="https://unpkg.com/masonry-layout@4/dist/masonry.pkgd.js"></script>
+    <script type="text/javascript" src="assets/js/script.js"></script>
 
 </body>
 
