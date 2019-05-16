@@ -39,6 +39,7 @@ input[type="text"] {
   height: 96px;
   font-size: 60px;
   line-height: 1;
+  color: #008000;
 }
 
 input[type="text"]::-webkit-input-placeholder {

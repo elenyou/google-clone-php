@@ -173,5 +173,5 @@ function followLinks($url) {
     }
 }
 
-$startUrl = "https://en.wikipedia.org/wiki/Poodle";
+$startUrl = "https://www.bbc.com/";
 followLinks($startUrl);
